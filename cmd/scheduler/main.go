@@ -38,9 +38,11 @@ import (
 	"sigs.k8s.io/scheduler-plugins/pkg/trimaran/lowriskovercommitment"
 	"sigs.k8s.io/scheduler-plugins/pkg/trimaran/peaks"
 	"sigs.k8s.io/scheduler-plugins/pkg/trimaran/targetloadpacking"
+	"sigs.k8s.io/scheduler-plugins/pkg/toposcheduler"
 
 	// Ensure scheme package is initialized.
 	_ "sigs.k8s.io/scheduler-plugins/apis/config/scheme"
+	
 )
 
 func main() {
@@ -64,6 +66,7 @@ func main() {
 		// app.WithPlugin(crossnodepreemption.Name, crossnodepreemption.New),
 		app.WithPlugin(podstate.Name, podstate.New),
 		app.WithPlugin(qos.Name, qos.New),
+		app.WithPlugin(toposcheduler.Name, toposcheduler.New),
 	)
 
 	code := cli.Run(command)

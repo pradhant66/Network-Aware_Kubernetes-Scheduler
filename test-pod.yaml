@@ -1,0 +1,10 @@
+# test-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-topo-pod
+spec:
+  schedulerName: topo-scheduler # This forces K8s to bypass the default scheduler and use yours
+  containers:
+  - name: nginx
+    image: nginx:latest

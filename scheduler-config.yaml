@@ -1,0 +1,13 @@
+# scheduler-config.yaml
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+clientConnection:
+  kubeconfig: "/Users/pradhan/.kube/config"
+leaderElection:
+  leaderElect: false
+profiles:
+  - schedulerName: topo-scheduler
+    plugins:
+      score:
+        enabled:
+          - name: TopoScheduler
