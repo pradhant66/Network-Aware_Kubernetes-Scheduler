@@ -27,8 +27,10 @@ label-nodes:
 deploy-demo:
 	@echo "Deploying the Emojivoto demo application..."
 	kubectl apply -f https://run.linkerd.io/emojivoto.yml
+	@echo "Giving Kubernetes a moment to create the pods..."
+	sleep 5
 	@echo "Waiting for pods to be ready..."
-	kubectl wait --for=condition=ready pod -l app.kubernetes.io/part-of=emojivoto -n emojivoto --timeout=90s
+	kubectl wait --for=condition=ready pod --all -n emojivoto --timeout=90s
 
 clean:
 	@echo "Destroying the cluster..."

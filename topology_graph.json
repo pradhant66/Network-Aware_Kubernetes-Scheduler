@@ -4,12 +4,12 @@
     "namespace": "emojivoto",
     "traffic_dependencies": [
       {
-        "target_pod": "emoji-745c8cd747-2kktw",
-        "requests_per_second": 1.88
+        "target_pod": "emoji-745c8cd747-25n65",
+        "requests_per_second": 1.96
       },
       {
-        "target_pod": "voting-846d476944-db946",
-        "requests_per_second": 0.94
+        "target_pod": "voting-846d476944-5grgm",
+        "requests_per_second": 0.98
       }
     ]
   },
@@ -18,8 +18,8 @@
     "namespace": "emojivoto",
     "traffic_dependencies": [
       {
-        "target_pod": "web-7d64655496-fv2x9",
-        "requests_per_second": 1.88
+        "target_pod": "web-7d64655496-k2mck",
+        "requests_per_second": 2.0
       }
     ]
   }
