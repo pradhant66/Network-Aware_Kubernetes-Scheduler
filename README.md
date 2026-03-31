@@ -21,9 +21,10 @@ To run this environment locally, ensure you have the following installed:
 To establish the local multi-node cluster, apply simulated rack/zone topology labels, and deploy the `emojivoto` demo application wrapped in the Linkerd Service Mesh -
 
 ### 1. Spin up the Cluster
-Run the team Makefile from the root of the repository. This will create a 4-node cluster (1 control plane, 3 workers) and deploy the demo app.
+Run the Makefile from the root of the repository. This will create a 4-node cluster (1 control plane, 3 workers) and deploy the demo app.
 ```bash
 make
+```
 
 ### 2. Install Linkerd
 Install the Linkerd control plane and its observability stack (Prometheus):
@@ -32,7 +33,7 @@ linkerd install --crds | kubectl apply -f -
 linkerd install | kubectl apply -f -
 linkerd check
 linkerd viz install | kubectl apply -f -
-
+```
 ### 3. Mesh the Application
 
 Inject the Linkerd proxies into the running `emojivoto` pods so they begin reporting network telemetry:
