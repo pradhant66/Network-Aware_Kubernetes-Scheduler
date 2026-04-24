@@ -1,0 +1,50 @@
+{
+  "pod_to_schedule": "web-new-instance",
+  "candidate_nodes": [
+    {
+      "name": "worker-1",
+      "zone": "us-east-1a",
+      "rack": "rack-1",
+      "cpu_utilization_pct": 88.5,
+      "active_pods": 42
+    },
+    {
+      "name": "worker-2",
+      "zone": "us-east-1a",
+      "rack": "rack-1",
+      "cpu_utilization_pct": 35.0,
+      "active_pods": 15
+    },
+    {
+      "name": "worker-3",
+      "zone": "us-east-1b",
+      "rack": "rack-2",
+      "cpu_utilization_pct": 12.0,
+      "active_pods": 8
+    },
+    {
+      "name": "worker-4",
+      "zone": "us-west-1a",
+      "rack": "rack-3",
+      "cpu_utilization_pct": 5.0,
+      "active_pods": 2
+    }
+  ],
+  "traffic_dependencies": [
+    {
+      "target_pod": "emoji-svc-abc",
+      "current_node": "worker-2",
+      "bytes_per_second": 8500
+    },
+    {
+      "target_pod": "voting-svc-xyz",
+      "current_node": "worker-3",
+      "bytes_per_second": 1200
+    },
+    {
+      "target_pod": "database-svc-primary",
+      "current_node": "worker-4",
+      "bytes_per_second": 250
+    }
+  ]
+}
