@@ -1,0 +1,32 @@
+[
+  {
+    "source_app": "web",
+    "namespace": "emojivoto",
+    "traffic_dependencies": [
+      {
+        "target_pod": "emoji-745c8cd747-rrz8c",
+        "requests_per_second": 4.82,
+        "p99_latency_ms": 0.99,
+        "bytes_per_second": 484.39
+      },
+      {
+        "target_pod": "voting-846d476944-cgpcp",
+        "requests_per_second": 2.69,
+        "p99_latency_ms": 0.99,
+        "bytes_per_second": 257.59
+      }
+    ]
+  },
+  {
+    "source_app": "vote-bot",
+    "namespace": "emojivoto",
+    "traffic_dependencies": [
+      {
+        "target_pod": "web-7d64655496-ll5vs",
+        "requests_per_second": 5.34,
+        "p99_latency_ms": 4.07,
+        "bytes_per_second": 424.27
+      }
+    ]
+  }
+]
