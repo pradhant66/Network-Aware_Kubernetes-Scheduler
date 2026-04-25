@@ -1,31 +1,1539 @@
 [
   {
+    "source_pod": "web-7d64655496-6n6cs",
     "source_app": "web",
+    "source_node": "topology-cluster-worker",
     "namespace": "emojivoto",
-    "traffic_dependencies": [
+    "target_nodes": [
       {
-        "target_pod": "emoji-745c8cd747-rrz8c",
-        "requests_per_second": 4.82,
-        "p99_latency_ms": 0.99,
-        "bytes_per_second": 484.39
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-29dj6",
+            "requests_per_second": 0.28,
+            "p99_latency_ms": 9.3,
+            "bytes_per_second": 27.88,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
       },
       {
-        "target_pod": "voting-846d476944-cgpcp",
-        "requests_per_second": 2.69,
-        "p99_latency_ms": 0.99,
-        "bytes_per_second": 257.59
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-hqcd5",
+            "requests_per_second": 0.28,
+            "p99_latency_ms": 4.86,
+            "bytes_per_second": 28.42,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-gzhdt",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 191.0,
+            "bytes_per_second": 17.88,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-grkkk",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.2,
+            "bytes_per_second": 15.6,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-r7b85",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 9.8,
+            "bytes_per_second": 15.56,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-xnclf",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 4.92,
+            "bytes_per_second": 17.34,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-4n6kv",
+            "requests_per_second": 0.24,
+            "p99_latency_ms": 1.98,
+            "bytes_per_second": 23.8,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-j4c44",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 18.9,
+            "bytes_per_second": 23.8,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
       }
     ]
   },
   {
-    "source_app": "vote-bot",
+    "source_pod": "web-7d64655496-hh5sz",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker3",
     "namespace": "emojivoto",
-    "traffic_dependencies": [
+    "target_nodes": [
       {
-        "target_pod": "web-7d64655496-ll5vs",
-        "requests_per_second": 5.34,
-        "p99_latency_ms": 4.07,
-        "bytes_per_second": 424.27
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-wl8zn",
+            "requests_per_second": 0.26,
+            "p99_latency_ms": 19.35,
+            "bytes_per_second": 26.04,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-qbdwv",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 9.45,
+            "bytes_per_second": 21.48,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-29dj6",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 9.5,
+            "bytes_per_second": 20.34,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-qn5vw",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-xnclf",
+            "requests_per_second": 0.24,
+            "p99_latency_ms": 48.8,
+            "bytes_per_second": 24.86,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-hqcd5",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 9.75,
+            "bytes_per_second": 19.68,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-bnl6k",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 9.75,
+            "bytes_per_second": 20.36,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-v67qv",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 3.91,
+            "bytes_per_second": 17.88,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-wl8zn",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 4.91,
+            "bytes_per_second": 18.96,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-4hq5w",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-grkkk",
+            "requests_per_second": 0.24,
+            "p99_latency_ms": 18.8,
+            "bytes_per_second": 24.35,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-j4c44",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 2.89,
+            "bytes_per_second": 22.3,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-4n6kv",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 3.91,
+            "bytes_per_second": 17.78,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-98jwf",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 3.97,
+            "bytes_per_second": 16.2,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-6klx8",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 9.5,
+            "bytes_per_second": 19.96,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-85fdn",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-4n6kv",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 4.89,
+            "bytes_per_second": 21.84,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-v67qv",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.6,
+            "bytes_per_second": 16.64,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-29dj6",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 9.55,
+            "bytes_per_second": 17.4,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-wl8zn",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 9.6,
+            "bytes_per_second": 15.72,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-xnclf",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 2.91,
+            "bytes_per_second": 19.44,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-gzhdt",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 9.8,
+            "bytes_per_second": 16.44,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-8nt6v",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-8jnsm",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 48.9,
+            "bytes_per_second": 23.68,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-4n6kv",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 19.67,
+            "bytes_per_second": 18.3,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-jqgfb",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-j4c44",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 28.9,
+            "bytes_per_second": 22.86,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-r7b85",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.2,
+            "bytes_per_second": 16.72,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-xnclf",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 39.2,
+            "bytes_per_second": 17.54,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-56l8x",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-r7b85",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 4.89,
+            "bytes_per_second": 22.78,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-grkkk",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 29.1,
+            "bytes_per_second": 18.66,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-wl8zn",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 2.97,
+            "bytes_per_second": 20.14,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-29dj6",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 9.55,
+            "bytes_per_second": 17.9,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-98jwf",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 4.9,
+            "bytes_per_second": 19.46,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-v67qv",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 29.2,
+            "bytes_per_second": 15.52,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-4j4w5",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-j4c44",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 2.96,
+            "bytes_per_second": 21.13,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-4n6kv",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 9.55,
+            "bytes_per_second": 17.57,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-grkkk",
+            "requests_per_second": 0.22,
+            "p99_latency_ms": 28.9,
+            "bytes_per_second": 21.29,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-vvh68",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-qn5vw",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 19.5,
+            "bytes_per_second": 16.51,
+            "errors_per_second": 0.04,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-lvnpb",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-56l8x",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 95.0,
+            "bytes_per_second": 15.84,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-4j4w5",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 95.5,
+            "bytes_per_second": 15.62,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "web-7d64655496-hh5sz",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 960.0,
+            "bytes_per_second": 12.4,
+            "errors_per_second": 0.04,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-49vd8",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-qbdwv",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 4.9,
+            "bytes_per_second": 20.6,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-wl8zn",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 2.92,
+            "bytes_per_second": 15.94,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-4n6kv",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 95.5,
+            "bytes_per_second": 19.12,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-j4c44",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 39.2,
+            "bytes_per_second": 15.16,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-q29gb",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-6klx8",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 9.75,
+            "bytes_per_second": 19.58,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-wl8zn",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 29.1,
+            "bytes_per_second": 17.38,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-v67qv",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 19.0,
+            "bytes_per_second": 19.8,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-98jwf",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 3.91,
+            "bytes_per_second": 19.34,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-pkhg7",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-v67qv",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 9.75,
+            "bytes_per_second": 20.6,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-hqcd5",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.1,
+            "bytes_per_second": 19.64,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-nw8ln",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-qbdwv",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 19.5,
+            "bytes_per_second": 20.22,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-7r8n6",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-wl8zn",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 39.0,
+            "bytes_per_second": 18.88,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-grkkk",
+            "requests_per_second": 0.2,
+            "p99_latency_ms": 19.0,
+            "bytes_per_second": 19.54,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-sk7f7",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-8r97v",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.77,
+            "bytes_per_second": 12.5,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-nw8ln",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 29.2,
+            "bytes_per_second": 12.0,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-jqcms",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-49vd8",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 491.0,
+            "bytes_per_second": 15.1,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-4hq5w",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.2,
+            "bytes_per_second": 11.54,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-4vd5t",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-pkhg7",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.1,
+            "bytes_per_second": 13.24,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-49vd8",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.6,
+            "bytes_per_second": 11.56,
+            "errors_per_second": 0.04,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "web-7d64655496-85fdn",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 9.8,
+            "bytes_per_second": 12.22,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-kjl2r",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-q29gb",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.55,
+            "bytes_per_second": 13.0,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-6n6cs",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 39.2,
+            "bytes_per_second": 12.92,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "web-7d64655496-8nt6v",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 96.0,
+            "bytes_per_second": 12.02,
+            "errors_per_second": 0.04,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-gdhv9",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 9.87,
+            "bytes_per_second": 11.76,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-5skvv",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-75dwt",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.7,
+            "bytes_per_second": 13.38,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-49vd8",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 192.0,
+            "bytes_per_second": 12.5,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-9w6f4",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-85fdn",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 29.1,
+            "bytes_per_second": 13.94,
+            "errors_per_second": 0.08,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-4hq5w",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 9.87,
+            "bytes_per_second": 11.46,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-pgbjd",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-qn5vw",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 39.1,
+            "bytes_per_second": 13.04,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-m85rp",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-8nt6v",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.1,
+            "bytes_per_second": 13.2,
+            "errors_per_second": 0.04,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "web-7d64655496-7r8n6",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 96.0,
+            "bytes_per_second": 11.52,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-mmjdj",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-6n6cs",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.1,
+            "bytes_per_second": 14.24,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-tfsrw",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-hh5sz",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.1,
+            "bytes_per_second": 15.06,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-56l8x",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.2,
+            "bytes_per_second": 11.68,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-6lgxv",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-jqgfb",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 39.1,
+            "bytes_per_second": 14.84,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-q29gb",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 9.92,
+            "bytes_per_second": 11.32,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "web-7d64655496-qn5vw",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 29.6,
+            "bytes_per_second": 12.38,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-8r97v",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-4n6kv",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 9.55,
+            "bytes_per_second": 17.26,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-grkkk",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 19.1,
+            "bytes_per_second": 18.34,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "emoji-745c8cd747-r7b85",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 3.96,
+            "bytes_per_second": 14.72,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-mkn4h",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-grkkk",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 95.5,
+            "bytes_per_second": 17.88,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-gtswz",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-v67qv",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 29.1,
+            "bytes_per_second": 18.18,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "web-7d64655496-gdhv9",
+    "source_app": "web",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-j4c44",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 49.1,
+            "bytes_per_second": 18.88,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "emoji-745c8cd747-r7b85",
+            "requests_per_second": 0.18,
+            "p99_latency_ms": 29.1,
+            "bytes_per_second": 18.1,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-6shm8",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-6n6cs",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.6,
+            "bytes_per_second": 12.12,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-q29gb",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 96.0,
+            "bytes_per_second": 11.8,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-56tlb",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 96.0,
+            "bytes_per_second": 12.34,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-xwhpf",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-85fdn",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 29.2,
+            "bytes_per_second": 12.2,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-mkn4h",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 96.0,
+            "bytes_per_second": 11.76,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-nw8ln",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 49.2,
+            "bytes_per_second": 11.7,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-kt2f9",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker2",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-q29gb",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 29.2,
+            "bytes_per_second": 11.54,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-mvq65",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-gdhv9",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 96.0,
+            "bytes_per_second": 13.68,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_pod": "vote-bot-77b6c7959b-dc9vz",
+    "source_app": "vote-bot",
+    "source_node": "topology-cluster-worker3",
+    "namespace": "emojivoto",
+    "target_nodes": [
+      {
+        "target_node": "topology-cluster-worker2",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-56l8x",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 19.6,
+            "bytes_per_second": 11.78,
+            "errors_per_second": 0.0,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          },
+          {
+            "target_pod": "web-7d64655496-8r97v",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 29.2,
+            "bytes_per_second": 11.72,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
+      },
+      {
+        "target_node": "topology-cluster-worker3",
+        "target_pods": [
+          {
+            "target_pod": "web-7d64655496-gdhv9",
+            "requests_per_second": 0.16,
+            "p99_latency_ms": 96.0,
+            "bytes_per_second": 13.5,
+            "errors_per_second": 0.02,
+            "active_connections": 0,
+            "retransmits_per_second": 0.0
+          }
+        ]
       }
     ]
   }

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgen
+  namespace: default
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: loadgen
+  template:
+    metadata:
+      labels:
+        app: loadgen
+    spec:
+      containers:
+      - name: loadgen
+        image: curlimages/curl:8.4.0
+        command:
+          - sh
+          - -c
+        args:
+          - |
+            while true; do
+              curl -s http://web.emojivoto.svc.cluster.local:80 >/dev/null
+              sleep 0.2
+            done
