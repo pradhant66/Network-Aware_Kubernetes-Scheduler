@@ -6,17 +6,17 @@ app = Flask(__name__)
 PROMETHEUS_URL = "http://prometheus.linkerd-viz.svc.cluster.local:9090/api/v1/query"
 
 # 1. Bandwidth Query (Bytes/sec) - using inbound metrics
-QUERY_BYTES = 'sum by (pod, client_id) (rate(request_total{namespace="default", direction="inbound"}[1m]))'
+QUERY_BYTES = 'sum by (pod, client_id) (rate(request_total{namespace="emojivoto", direction="inbound"}[1m]))'
 # 2. Latency Query (P99 ms) - using inbound response metrics
-QUERY_LATENCY = 'histogram_quantile(0.99, sum by (le, pod, client_id) (rate(response_latency_ms_bucket{namespace="default", direction="inbound"}[1m])))'
+QUERY_LATENCY = 'histogram_quantile(0.99, sum by (le, pod, client_id) (rate(response_latency_ms_bucket{namespace="emojivoto", direction="inbound"}[1m])))'
 # 3. Request Rate Query (RPS) - using inbound metrics
-QUERY_RPS = 'sum by (pod, client_id) (rate(request_total{namespace="default", direction="inbound"}[1m]))'
+QUERY_RPS = 'sum by (pod, client_id) (rate(request_total{namespace="emojivoto", direction="inbound"}[1m]))'
 # 4. Error Rate Query (Errors/sec) - using inbound metrics
-QUERY_ERRORS = 'sum by (pod, client_id) (rate(response_total{namespace="default", direction="inbound", classification="failure"}[1m]))'
+QUERY_ERRORS = 'sum by (pod, client_id) (rate(response_total{namespace="emojivoto", direction="inbound", classification="failure"}[1m]))'
 # 5. Active Connections Query - using inbound metrics
-QUERY_CONNECTIONS = 'sum by (pod, client_id) (tcp_active_connections{namespace="default", direction="inbound"})'
+QUERY_CONNECTIONS = 'sum by (pod, client_id) (tcp_active_connections{namespace="emojivoto", direction="inbound"})'
 # 6. Packet Retransmissions - using inbound metrics
-QUERY_RETRANSMITS = 'sum by (pod, client_id) (rate(tcp_retransmits_total{namespace="default", direction="inbound"}[1m]))'
+QUERY_RETRANSMITS = 'sum by (pod, client_id) (rate(tcp_retransmits_total{namespace="emojivoto", direction="inbound"}[1m]))'
 
 def query_prom(query_string):
     """Helper function to fetch data from Prometheus"""

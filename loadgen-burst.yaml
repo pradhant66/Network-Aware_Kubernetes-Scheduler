@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgen-burst
+  namespace: emojivoto
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: loadgen-burst
+  template:
+    metadata:
+      labels:
+        app: loadgen-burst
+      annotations:
+        linkerd.io/inject: enabled
+    spec:
+      containers:
+      - name: loadgen-burst
+        image: curlimages/curl:8.4.0
+        command:
+          - sh
+          - -c
+        args:
+          - |
+            while true; do
+              echo BURST
+              end=$(( $(date +%s) + 60 ))
+              while [ $(date +%s) -lt $end ]; do
+                curl -s http://web-svc.emojivoto.svc.cluster.local:80 >/dev/null &
+                curl -s http://web-svc.emojivoto.svc.cluster.local:80/api/vote >/dev/null &
+                curl -s http://web-svc.emojivoto.svc.cluster.local:80/api/list >/dev/null &
+                sleep 0.05
+              done
+              echo QUIET
+              sleep 30
+            done

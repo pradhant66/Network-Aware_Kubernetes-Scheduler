@@ -22,10 +22,6 @@ label-nodes:
 	kubectl label node $(CLUSTER_NAME)-worker topology.kubernetes.io/region=us-east-1 topology.kubernetes.io/zone=us-east-1a topology.kubernetes.io/rack=rack-1 --overwrite
 	kubectl label node $(CLUSTER_NAME)-worker2 topology.kubernetes.io/region=us-east-1 topology.kubernetes.io/zone=us-east-1a topology.kubernetes.io/rack=rack-1 --overwrite
 	kubectl label node $(CLUSTER_NAME)-worker3 topology.kubernetes.io/region=us-east-1 topology.kubernetes.io/zone=us-east-1b topology.kubernetes.io/rack=rack-2 --overwrite
-	kubectl label node $(CLUSTER_NAME)-worker4 topology.kubernetes.io/region=us-east-1 topology.kubernetes.io/zone=us-east-1b topology.kubernetes.io/rack=rack-2 --overwrite
-	kubectl label node $(CLUSTER_NAME)-worker5 topology.kubernetes.io/region=us-west-2 topology.kubernetes.io/zone=us-west-2a topology.kubernetes.io/rack=rack-3 --overwrite
-	kubectl label node $(CLUSTER_NAME)-worker6 topology.kubernetes.io/region=us-west-2 topology.kubernetes.io/zone=us-west-2b topology.kubernetes.io/rack=rack-4 --overwrite
-	kubectl label node $(CLUSTER_NAME)-worker7 topology.kubernetes.io/region=us-west-2 topology.kubernetes.io/zone=us-west-2b topology.kubernetes.io/rack=rack-4 --overwrite
 
 deploy-demo:
 	@echo "Deploying the Emojivoto demo application..."
@@ -37,10 +33,10 @@ deploy-demo:
 
 scale-apps:
 	@echo "Scaling Emojivoto replicas for a larger traffic graph..."
-	kubectl scale deploy web --replicas=20 -n emojivoto
-	kubectl scale deploy vote-bot --replicas=20 -n emojivoto
-	kubectl scale deploy voting --replicas=20 -n emojivoto
-	kubectl scale deploy emoji --replicas=15 -n emojivoto
+	kubectl scale deploy web --replicas=1 -n emojivoto
+	kubectl scale deploy vote-bot --replicas=1 -n emojivoto
+	kubectl scale deploy voting --replicas=1 -n emojivoto
+	kubectl scale deploy emoji --replicas=1 -n emojivoto
 
 loadgen:
 	@echo "Deploying traffic generator to amplify mesh traffic..."
@@ -84,3 +80,7 @@ scale-boutique:
 loadgen-boutique:
 	@echo "The Online Boutique already includes a loadgenerator deployment..."
 	@echo "To increase traffic, scale the loadgenerator deployment using 'make scale-boutique'"
+
+clean:
+	@echo "Cleaning up: Deleting Kind cluster..."
+	kind delete cluster --name $(CLUSTER_NAME)

@@ -2,184 +2,234 @@
 
 This repository contains the infrastructure and microservice code for the **Observation Layer** of a custom Network-Aware Kubernetes Scheduler.
 
-The system uses the **Linkerd Service Mesh** to capture east-west traffic telemetry between pods and exposes the live traffic graph through a Python Flask API. That graph can be consumed by a scheduler to make topology-aware placement decisions.
+The system uses the **Linkerd Service Mesh** to capture east-west traffic telemetry between pods and exposes the live traffic graph through a Python Flask API. That graph is consumed by the scheduler to make topology-aware placement decisions.
 
 ---
 
 ## Prerequisites
 
 Install the following locally:
-- Docker or [OrbStack](https://orbstack.dev/) on macOS
-- [Kind](https://kind.sigs.k8s.io/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (4.x or later) on macOS
+- [Kind](https://kind.sigs.k8s.io/) v0.20.0
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
-- [Linkerd CLI](https://linkerd.io/2.14/getting-started/)
+- [Linkerd CLI](https://linkerd.io/2.14/getting-started/) v2.14.x
+
+> **Apple Silicon note:** Kind requires Docker Desktop with `cgroupfs` as the cgroup driver. Do not set `native.cgroupdriver=systemd` in Docker Engine settings — it will prevent worker nodes from joining.
+
+---
+
+## Cluster Topology
+
+The Kind cluster simulates a multi-rack, multi-zone data center topology using node labels applied by Person 2. The logical structure is:
+
+```
+Region: us-east-1
+  Zone: us-east-1a  →  rack-1  (2 worker nodes)
+  Zone: us-east-1b  →  rack-2  (2 worker nodes)
+Region: us-west-2
+  Zone: us-west-2a  →  rack-3  (1 worker node)
+  Zone: us-west-2b  →  rack-4  (2 worker nodes)
+```
+
+Node labels are applied by Person 2 using:
+```
+topology.kubernetes.io/zone
+topology.kubernetes.io/rack
+```
 
 ---
 
 ## Setup and Run
 
-### 1. Create the Kind cluster
-From the repository root:
+### 1. Create the Kind Cluster
 
 ```bash
 make
 ```
 
-This will:
-- create a Kind cluster named `topology-cluster`
-- apply worker node labels for topology testing
+This creates a Kind cluster named `topology-cluster` using `kind-config.yaml`.
 
-### 2. Choose and deploy a demo application
-
-**Option A: Emojivoto (Simple - 4 services)**
-```bash
-make deploy-demo
-```
-
-**Option B: Online Boutique (Complex - 11 services)**
-```bash
-make deploy-boutique
-```
-
-### Topology structure
-- **Region: us-east-1**
-  - Zone: us-east-1a (Rack 1: 2 nodes)
-  - Zone: us-east-1b (Rack 2: 2 nodes)
-- **Region: us-west-2**
-  - Zone: us-west-2a (Rack 1: 1 node)
-  - Zone: us-west-2b (Rack 2: 2 nodes)
-
-### 3. Install Linkerd and Viz
-Install Linkerd control plane and observability components:
+### 2. Install Linkerd
 
 ```bash
 linkerd install --crds | kubectl apply -f -
 linkerd install | kubectl apply -f -
 linkerd check
-linkerd viz install | kubectl apply -f -
 ```
 
-### 4. Mesh the application
+Wait for all checks to pass before continuing. Version warnings (`unsupported version channel`) are safe to ignore.
 
-**For Emojivoto:**
+### 3. Install Linkerd Viz (Prometheus)
+
+```bash
+linkerd viz install | kubectl apply -f -
+linkerd viz check
+```
+
+### 4. Deploy Emojivoto
+
+```bash
+make deploy-demo
+```
+
+This deploys the emojivoto demo application into the `emojivoto` namespace. It includes four services:
+
+- `web` — HTTP frontend, calls emoji-svc and voting-svc
+- `emoji-svc` — serves emoji lists
+- `voting-svc` — records votes (gRPC)
+- `vote-bot` — simulates background user traffic
+
+### 5. Inject Linkerd into Emojivoto
+
 ```bash
 kubectl get deploy -n emojivoto -o yaml | linkerd inject - | kubectl apply -f -
 ```
 
-**For Online Boutique:**
-```bash
-kubectl get deploy -n default -o yaml | linkerd inject - | kubectl apply -f -
-```
-
-### Alternative: Online Boutique Demo Application
-
-For a more complex microservice topology with 11 services (vs Emojivoto's 4), deploy Google's Online Boutique instead:
+### 6. Enable Linkerd Injection in Default Namespace
 
 ```bash
-make deploy-boutique
+kubectl annotate namespace default linkerd.io/inject=enabled
 ```
 
-This deploys a realistic e-commerce application with services like:
-- `frontend`: Web frontend
-- `recommendationservice`: Product recommendations
-- `checkoutservice`: Checkout processing
-- `cartservice`: Shopping cart (with Redis)
-- `currencyservice`: Currency conversion
-- `emailservice`: Email notifications
-- `paymentservice`: Payment processing
-- `productcatalogservice`: Product catalog
-- `shippingservice`: Shipping calculations
-- `adservice`: Ad serving
-- `loadgenerator`: Built-in traffic generator
+This ensures the telemetry API pod gets a Linkerd sidecar automatically.
 
-After deployment, mesh the application:
-
-```bash
-kubectl get deploy -n default -o yaml | linkerd inject - | kubectl apply -f -
-```
-
-To scale for larger graphs:
-
-```bash
-make scale-boutique
-```
-
-The Online Boutique provides a much richer topology for testing network-aware scheduling algorithms compared to Emojivoto's simple voting application.
-
-### 5. Build and load the telemetry API image
+### 7. Build and Load the Telemetry API Image
 
 ```bash
 cd telemetry-api
 docker build --no-cache -t telemetry-api:latest .
 kind load docker-image telemetry-api:latest --name topology-cluster
+cd ..
 ```
 
-### 6. Deploy the telemetry API
+### 8. Deploy the Telemetry API
 
 ```bash
-cd ..
 kubectl apply -f telemetry-api/telemetry-deployment.yaml
-kubectl get deployment telemetry-api -o yaml | linkerd inject - | kubectl apply -f -
+kubectl rollout restart deployment/telemetry-api -n default
 kubectl apply -f telemetry-api/prom-rbac.yaml
 ```
 
-### 7. Expose the API locally for testing
+### 9. Deploy Load Generators
 
-The service port is `80` and the container listens on `8080`.
+Load generators live in the `emojivoto` namespace so their outbound traffic appears in Linkerd metrics:
 
 ```bash
-kubectl port-forward svc/telemetry-service 8080:80 -n default
+kubectl annotate namespace emojivoto linkerd.io/inject=enabled --overwrite
+kubectl apply -f loadgen-deployment.yaml
+kubectl apply -f loadgen-burst.yaml
+```
+---
+
+## Traffic Architecture
+
+```
+emojivoto namespace
+├── vote-bot   (1 pod)   → web-svc             ~0.3 rps (background)
+├── loadgen    (10 pods) → web-svc             ~30 rps per pod (steady)
+├── loadgen-burst (5 pods) → web-svc           ~300 rps during burst, 0 during quiet
+├── web        (5 pods)  → emoji-svc, voting-svc
+├── emoji-svc  (5 pods)  → receives only
+└── voting-svc (5 pods)  → receives only
 ```
 
-Then test locally:
+> **Important:** `voting-svc` uses gRPC and cannot be hit directly with curl. Traffic to `voting-svc` is driven indirectly by `web` on each vote request. Use the `/vote` endpoint on `web-svc` to trigger voting traffic.
+
+### Service DNS Names (inside cluster)
+
+| Service | DNS | Port |
+|---|---|---|
+| web | `web-svc.emojivoto.svc.cluster.local` | 80 |
+| emoji | `emoji-svc.emojivoto.svc.cluster.local` | 8080 |
+| voting | `voting-svc.emojivoto.svc.cluster.local` | 8080 |
+
+---
+
+## Scaling Traffic
+
+Scale replicas for a richer graph:
 
 ```bash
-curl http://localhost:8080/api/v1/traffic | jq
+kubectl scale deployment emoji voting web -n emojivoto --replicas=5
+```
+
+Scale load generators:
+
+```bash
+kubectl scale deployment loadgen -n emojivoto --replicas=10
+```
+
+Watch live traffic:
+
+```bash
+while true; do
+  clear
+  echo "=== $(date) ==="
+  linkerd viz stat deployment -n emojivoto
+  sleep 5
+done
 ```
 
 ---
 
-## Scaling the Application and Traffic
+## Generating `topology_graph.json`
 
-To increase the size and complexity of the observed graph, scale the services and deploy traffic generators:
+First port-forward Prometheus:
 
-**For Emojivoto:**
 ```bash
-make scale-apps
-make loadgen
+kubectl port-forward svc/prometheus -n linkerd-viz 9090:9090 &
 ```
 
-**For Online Boutique:**
+Then run:
+
 ```bash
-make scale-boutique
-# (loadgenerator is built-in)
+python3 gen_graph.py
 ```
 
-This scales replicas to create more distinct source/target paths and deploys a pod that continuously requests the `web` service.
-
-Once the traffic generator is running, regenerate the topology graph:
+This writes a metrics-enriched graph to `topology_graph.json`. Run continuously to keep it fresh:
 
 ```bash
-make generate-graph
+while true; do
+  python3 gen_graph.py
+  sleep 30
+done
+```
+
+Capture burst vs quiet snapshots for evaluation:
+
+```bash
+python3 gen_graph.py && cp topology_graph.json topology_graph_burst.json
+# wait for quiet period
+python3 gen_graph.py && cp topology_graph.json topology_graph_quiet.json
 ```
 
 ---
 
 ## Internal API Contract
 
-The telemetry service exposes traffic data internally at:
+The telemetry service is accessible inside the cluster at:
 
-`http://telemetry-service.default.svc.cluster.local/api/v1/traffic`
+```
+http://telemetry-service.default.svc.cluster.local/api/v1/traffic
+```
 
-Each source pod returns a list of outbound dependencies and metrics.
+Expose it locally for testing:
 
-**Returned fields:**
-- `bytes_per_second`
-- `p99_latency_ms`
-- `requests_per_second`
-- `errors_per_second`
-- `active_connections`
-- `retransmits_per_second`
+```bash
+kubectl port-forward svc/telemetry-service 8080:80 -n default &
+curl http://localhost:8080/api/v1/traffic | python3 -m json.tool
+```
+
+**Response fields per traffic dependency:**
+
+| Field | Description |
+|---|---|
+| `bytes_per_second` | Outbound bandwidth from source to target |
+| `p99_latency_ms` | 99th percentile latency for that path |
+| `requests_per_second` | Request rate on that path |
+| `errors_per_second` | Failure rate on that path |
+| `active_connections` | Current open TCP connections |
+| `retransmits_per_second` | TCP retransmission rate |
 
 **Sample response:**
 
@@ -187,14 +237,14 @@ Each source pod returns a list of outbound dependencies and metrics.
 [
   {
     "namespace": "emojivoto",
-    "pod_name": "vote-bot-77b6c7959b-cgbx8",
+    "source_app": "vote-bot",
     "traffic_dependencies": [
       {
-        "target_pod": "web-7d64655496-57q6k",
-        "bytes_per_second": 150.06,
-        "p99_latency_ms": 9.59,
+        "target_pod": "web-7d64655496-w6kw9",
+        "bytes_per_second": 149.84,
+        "p99_latency_ms": 8.37,
         "requests_per_second": 1.96,
-        "errors_per_second": 0.16,
+        "errors_per_second": 0.18,
         "active_connections": 0,
         "retransmits_per_second": 0.0
       }
@@ -207,63 +257,69 @@ Each source pod returns a list of outbound dependencies and metrics.
 
 ## Understanding `topology_graph.json`
 
-`topology_graph.json` is a generated representation of the live traffic topology inside the mesh. It is not a static physical topology; it is a runtime view of which application pods are actively talking to which other pods, plus metrics for those edges.
+`topology_graph.json` is a runtime view of which pods are actively talking to which other pods, enriched with traffic metrics. It is not a static physical topology.
 
-Each top-level object contains:
-- `source_app`: the calling application or pod source
-- `namespace`: the Kubernetes namespace
-- `traffic_dependencies`: an array of outbound relationships
+Each entry contains:
+- `source_pod` — the calling pod
+- `source_app` — the calling application name
+- `source_node` — the Kubernetes node the source pod is running on
+- `namespace` — the Kubernetes namespace
+- `target_nodes` — grouped list of destination nodes and their pods
 
-Each dependency contains:
-- `target_pod`: the destination pod
-- `bytes_per_second`: outbound bandwidth from source to target
-- `p99_latency_ms`: 99th percentile latency for that traffic path
-- `requests_per_second`: request rate on that path
-- `errors_per_second`: failure rate on that path
-- `active_connections`: current open TCP connections
-- `retransmits_per_second`: retransmission rate on that path
+The scheduler uses this file to compute placement cost:
 
-This file is useful for the scheduler because it lets scheduling logic consider both network topology and live traffic behavior. For example, the scheduler can:
-- prefer nodes in the same zone/rack for high-bandwidth, low-latency flows
-- avoid pods with high error or retransmission rates
-- group related services onto nearby topology labels to reduce cross-zone traffic
-
----
-
-## Generating `topology_graph.json`
-
-The repository includes `gen_graph.py`, which can generate a local topology file from Prometheus metrics.
-
-First port-forward Prometheus:
-
-```bash
-kubectl port-forward svc/prometheus 9090:9090 -n linkerd-viz
+```
+Cost(pod_p, node_n) = Σ traffic(p, q) × distance(n, node(q))
 ```
 
-Then run:
-
-```bash
-python3 gen_graph.py
-```
-
-This writes a metrics-enriched graph to `topology_graph.json`.
+Where `distance` is determined by the rack/zone topology labels on each node.
 
 ---
 
 ## Validation
 
-To verify from inside the cluster:
+Verify the telemetry API from inside the cluster:
 
 ```bash
-kubectl run -i --tty --rm debug --image=curlimages/curl --restart=Never -- curl -s http://telemetry-service.default.svc.cluster.local/api/v1/traffic | jq
+kubectl run -i --tty --rm debug --image=curlimages/curl \
+  --restart=Never -n default -- \
+  curl -s http://telemetry-service.default.svc.cluster.local/api/v1/traffic
+```
+
+Verify Linkerd is capturing traffic:
+
+```bash
+linkerd viz stat deployment -n emojivoto
+```
+
+All deployments should show non-zero RPS and `MESHED` column should show all replicas (e.g. `5/5`).
+
+---
+
+## Handoff to Person 2 and 3
+
+**For Person 2** — node topology:
+```bash
+kubectl get nodes -o custom-columns="NODE:.metadata.name,ZONE:.metadata.labels.topology\.kubernetes\.io/zone,RACK:.metadata.labels.topology\.kubernetes\.io/rack"
+```
+
+**For Person 3** — live graph endpoint:
+```bash
+kubectl port-forward svc/telemetry-service 8080:80 -n default &
+curl http://localhost:8080/api/v1/traffic
+```
+
+**For both** — Prometheus:
+```bash
+kubectl port-forward svc/prometheus -n linkerd-viz 9090:9090 &
 ```
 
 ---
 
 ## Cleanup
 
-Remove the Kind cluster:
-
 ```bash
 make clean
 ```
+
+This deletes the Kind cluster and all resources inside it.

@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: loadgen
+    annotations:
+      linkerd.io/inject: enabled
     spec:
       containers:
       - name: loadgen
@@ -22,6 +24,8 @@ spec:
         args:
           - |
             while true; do
-              curl -s http://web.emojivoto.svc.cluster.local:80 >/dev/null
-              sleep 0.2
+              curl -s http://web-svc.emojivoto.svc.cluster.local:80 >/dev/null &
+              curl -s http://web-svc.emojivoto.svc.cluster.local:80/api/vote >/dev/null &
+              curl -s http://web-svc.emojivoto.svc.cluster.local:80/api/list >/dev/null &
+              sleep 0.1
             done

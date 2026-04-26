@@ -9,7 +9,7 @@ BASE_URL = 'http://localhost:9090/api/v1/query?query='
 # -------------------------------
 # Config
 # -------------------------------
-NAMESPACES = ["emojivoto"]   # add/remove namespaces here
+NAMESPACES = ["emojivoto", "default"]  # add/remove namespaces here
 RPS_THRESHOLD = 0.05                        # filter noise
 MAX_EDGES     = 100                         # per-namespace cap
 
