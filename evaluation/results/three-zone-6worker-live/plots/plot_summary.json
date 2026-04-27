@@ -1,87 +1,87 @@
 [
   {
     "mode": "default",
-    "total_weighted_cost": 10344.75,
+    "total_weighted_cost": 16140.56,
     "edge_counts": {
-      "same_node": 1,
+      "same_node": 2,
       "same_rack": 0,
-      "same_zone": 3,
+      "same_zone": 2,
       "cross_zone": 8
     },
-    "average_p99_latency_ms": 28.51666666666667,
-    "max_p99_latency_ms": 48.6,
+    "average_p99_latency_ms": 88.00333333333333,
+    "max_p99_latency_ms": 163.97,
     "per_edge_latency_ms": {
-      "web->emoji-86cb9c4885-qtqd4": 36.95,
-      "web->voting-84f5d59c6b-rp2c2": 0.0,
-      "vote-bot->web-5c46859986-x2c2n": 48.6
+      "web->emoji-7c8964c796-qn6bh": 81.8,
+      "web->voting-6fd84b7f5f-gwxmp": 18.24,
+      "vote-bot->web-7d8476dbf5-tv98h": 163.97
     }
   },
   {
     "mode": "network-only",
-    "total_weighted_cost": 6277.44,
+    "total_weighted_cost": 2863.76,
     "edge_counts": {
       "same_node": 6,
       "same_rack": 0,
-      "same_zone": 0,
-      "cross_zone": 6
+      "same_zone": 6,
+      "cross_zone": 0
     },
-    "average_p99_latency_ms": 115.75333333333333,
-    "max_p99_latency_ms": 252.62,
+    "average_p99_latency_ms": 69.93333333333334,
+    "max_p99_latency_ms": 152.0,
     "per_edge_latency_ms": {
-      "web->emoji-86cb9c4885-qtqd4": 75.09,
-      "web->voting-84f5d59c6b-rp2c2": 19.55,
-      "vote-bot->web-5c46859986-x2c2n": 252.62
+      "web->emoji-7c8964c796-qn6bh": 40.2,
+      "web->voting-6fd84b7f5f-gwxmp": 17.6,
+      "vote-bot->web-7d8476dbf5-tv98h": 152.0
     }
   },
   {
     "mode": "cpu-proximity",
-    "total_weighted_cost": 8616.08,
+    "total_weighted_cost": 2853.17,
     "edge_counts": {
       "same_node": 6,
       "same_rack": 0,
-      "same_zone": 0,
-      "cross_zone": 6
+      "same_zone": 6,
+      "cross_zone": 0
     },
-    "average_p99_latency_ms": 797.2600000000001,
-    "max_p99_latency_ms": 1298.64,
+    "average_p99_latency_ms": 219.33333333333334,
+    "max_p99_latency_ms": 404.0,
     "per_edge_latency_ms": {
-      "web->emoji-86cb9c4885-qtqd4": 820.14,
-      "web->voting-84f5d59c6b-rp2c2": 273.0,
-      "vote-bot->web-5c46859986-x2c2n": 1298.64
+      "web->emoji-7c8964c796-qn6bh": 404.0,
+      "web->voting-6fd84b7f5f-gwxmp": 152.0,
+      "vote-bot->web-7d8476dbf5-tv98h": 102.0
     }
   },
   {
     "mode": "centrality",
-    "total_weighted_cost": 11123.61,
+    "total_weighted_cost": 2813.6,
     "edge_counts": {
       "same_node": 6,
       "same_rack": 0,
-      "same_zone": 0,
-      "cross_zone": 6
+      "same_zone": 6,
+      "cross_zone": 0
     },
-    "average_p99_latency_ms": 902.6666666666666,
-    "max_p99_latency_ms": 1630.0,
+    "average_p99_latency_ms": 367.0,
+    "max_p99_latency_ms": 540.0,
     "per_edge_latency_ms": {
-      "web->emoji-86cb9c4885-qtqd4": 815.0,
-      "web->voting-84f5d59c6b-rp2c2": 263.0,
-      "vote-bot->web-5c46859986-x2c2n": 1630.0
+      "web->emoji-7c8964c796-qn6bh": 408.0,
+      "web->voting-6fd84b7f5f-gwxmp": 153.0,
+      "vote-bot->web-7d8476dbf5-tv98h": 540.0
     }
   },
   {
     "mode": "pid",
-    "total_weighted_cost": 10881.25,
+    "total_weighted_cost": 8598.2,
     "edge_counts": {
-      "same_node": 6,
+      "same_node": 5,
       "same_rack": 0,
-      "same_zone": 0,
-      "cross_zone": 6
+      "same_zone": 5,
+      "cross_zone": 2
     },
-    "average_p99_latency_ms": 433.28999999999996,
-    "max_p99_latency_ms": 1120.0,
+    "average_p99_latency_ms": 258.0,
+    "max_p99_latency_ms": 410.0,
     "per_edge_latency_ms": {
-      "web->emoji-86cb9c4885-qtqd4": 170.67,
-      "web->voting-84f5d59c6b-rp2c2": 9.2,
-      "vote-bot->web-5c46859986-x2c2n": 1120.0
+      "web->emoji-7c8964c796-qn6bh": 210.0,
+      "web->voting-6fd84b7f5f-gwxmp": 154.0,
+      "vote-bot->web-7d8476dbf5-tv98h": 410.0
     }
   }
 ]

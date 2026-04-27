@@ -11,6 +11,7 @@ PROMETHEUS_BASE_URL="${PROMETHEUS_BASE_URL:-http://localhost:9090/api/v1/query?q
 BUILD_SCHEDULER="${BUILD_SCHEDULER:-1}"
 ENABLE_BURST="${ENABLE_BURST:-1}"
 ENABLE_HOTSPOT="${ENABLE_HOTSPOT:-1}"
+GRAPH_WARMUP_SECONDS="${GRAPH_WARMUP_SECONDS:-10}"
 
 MODES=("$@")
 if [[ ${#MODES[@]} -eq 0 ]]; then
@@ -125,6 +126,17 @@ save_graph_snapshot() {
   fi
 }
 
+warm_up_graph_capture() {
+  if [[ "$GRAPH_WARMUP_SECONDS" -gt 0 ]]; then
+    echo
+    echo "==> waiting ${GRAPH_WARMUP_SECONDS}s for traffic to stabilize before saving graph snapshot"
+    sleep "$GRAPH_WARMUP_SECONDS"
+  fi
+  if [[ "$USE_LIVE_GRAPH" == "1" ]]; then
+    wait_for_live_graph
+  fi
+}
+
 assess_args() {
   if [[ "$USE_LIVE_GRAPH" == "1" ]]; then
     printf -- "--graph-url %s" "$LIVE_GRAPH_URL"
@@ -176,9 +188,10 @@ start_scheduler() {
 run_default_mode() {
   cleanup_eval_deployments
   refresh_graph
-  save_graph_snapshot default
   run kubectl apply -f "$EVAL_DIR/web-like-default.yaml"
   run kubectl rollout status deployment/web-like-default -n emojivoto
+  warm_up_graph_capture
+  save_graph_snapshot default
   local out_file
   local graph_args
   out_file="$(result_file_for_mode default)"
@@ -194,10 +207,11 @@ run_topo_mode() {
   local mode="$1"
   cleanup_eval_deployments
   refresh_graph
-  save_graph_snapshot "$mode"
   start_scheduler "$mode"
   run kubectl apply -f "$EVAL_DIR/web-like-topo.yaml"
   run kubectl rollout status deployment/web-like-topo -n emojivoto
+  warm_up_graph_capture
+  save_graph_snapshot "$mode"
   local out_file
   local graph_args
   out_file="$(result_file_for_mode "$mode")"
