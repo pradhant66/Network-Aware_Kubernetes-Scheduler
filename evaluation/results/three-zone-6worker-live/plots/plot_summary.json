@@ -1,0 +1,87 @@
+[
+  {
+    "mode": "default",
+    "total_weighted_cost": 10344.75,
+    "edge_counts": {
+      "same_node": 1,
+      "same_rack": 0,
+      "same_zone": 3,
+      "cross_zone": 8
+    },
+    "average_p99_latency_ms": 28.51666666666667,
+    "max_p99_latency_ms": 48.6,
+    "per_edge_latency_ms": {
+      "web->emoji-86cb9c4885-qtqd4": 36.95,
+      "web->voting-84f5d59c6b-rp2c2": 0.0,
+      "vote-bot->web-5c46859986-x2c2n": 48.6
+    }
+  },
+  {
+    "mode": "network-only",
+    "total_weighted_cost": 6277.44,
+    "edge_counts": {
+      "same_node": 6,
+      "same_rack": 0,
+      "same_zone": 0,
+      "cross_zone": 6
+    },
+    "average_p99_latency_ms": 115.75333333333333,
+    "max_p99_latency_ms": 252.62,
+    "per_edge_latency_ms": {
+      "web->emoji-86cb9c4885-qtqd4": 75.09,
+      "web->voting-84f5d59c6b-rp2c2": 19.55,
+      "vote-bot->web-5c46859986-x2c2n": 252.62
+    }
+  },
+  {
+    "mode": "cpu-proximity",
+    "total_weighted_cost": 8616.08,
+    "edge_counts": {
+      "same_node": 6,
+      "same_rack": 0,
+      "same_zone": 0,
+      "cross_zone": 6
+    },
+    "average_p99_latency_ms": 797.2600000000001,
+    "max_p99_latency_ms": 1298.64,
+    "per_edge_latency_ms": {
+      "web->emoji-86cb9c4885-qtqd4": 820.14,
+      "web->voting-84f5d59c6b-rp2c2": 273.0,
+      "vote-bot->web-5c46859986-x2c2n": 1298.64
+    }
+  },
+  {
+    "mode": "centrality",
+    "total_weighted_cost": 11123.61,
+    "edge_counts": {
+      "same_node": 6,
+      "same_rack": 0,
+      "same_zone": 0,
+      "cross_zone": 6
+    },
+    "average_p99_latency_ms": 902.6666666666666,
+    "max_p99_latency_ms": 1630.0,
+    "per_edge_latency_ms": {
+      "web->emoji-86cb9c4885-qtqd4": 815.0,
+      "web->voting-84f5d59c6b-rp2c2": 263.0,
+      "vote-bot->web-5c46859986-x2c2n": 1630.0
+    }
+  },
+  {
+    "mode": "pid",
+    "total_weighted_cost": 10881.25,
+    "edge_counts": {
+      "same_node": 6,
+      "same_rack": 0,
+      "same_zone": 0,
+      "cross_zone": 6
+    },
+    "average_p99_latency_ms": 433.28999999999996,
+    "max_p99_latency_ms": 1120.0,
+    "per_edge_latency_ms": {
+      "web->emoji-86cb9c4885-qtqd4": 170.67,
+      "web->voting-84f5d59c6b-rp2c2": 9.2,
+      "vote-bot->web-5c46859986-x2c2n": 1120.0
+    }
+  }
+]

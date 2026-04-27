@@ -2,8 +2,9 @@ import urllib.request
 import urllib.parse
 import json
 import sys
+import os
 
-BASE_URL = 'http://localhost:9090/api/v1/query?query='
+BASE_URL = os.getenv("PROMETHEUS_BASE_URL", 'http://localhost:9090/api/v1/query?query=')
 
 # The Three Golden Metrics (Inbound Perspective)
 # 1. Requests Per Second (RPS)
@@ -12,6 +13,9 @@ Q_RPS = 'sum(rate(request_total{namespace="emojivoto",direction="inbound"}[1m]))
 Q_LATENCY = 'histogram_quantile(0.99, sum(rate(response_latency_ms_bucket{namespace="emojivoto",direction="inbound"}[1m]))by(le,pod,client_id))'
 # 3. Network Bandwidth in Bytes/Second
 Q_BYTES = 'sum(rate(tcp_read_bytes_total{namespace="emojivoto",direction="inbound"}[1m]))by(pod,client_id)'
+Q_ERRORS = 'sum(rate(response_total{namespace="emojivoto",direction="inbound",classification="failure"}[1m]))by(pod,client_id)'
+Q_CONNECTIONS = 'sum(tcp_open_connections{namespace="emojivoto",direction="inbound"})by(pod,client_id)'
+Q_RETRANSMITS = 'sum(rate(tcp_retransmits_total{namespace="emojivoto",direction="inbound"}[1m]))by(pod,client_id)'
 
 def fetch_prom(query):
     """Fetches and parses a PromQL query safely."""
@@ -24,10 +28,13 @@ def fetch_prom(query):
         sys.exit(1)
 
 def fetch_and_parse():
-    # Fetch all three datasets
+    # Fetch all datasets
     rps_data = fetch_prom(Q_RPS)
     latency_data = fetch_prom(Q_LATENCY)
     bytes_data = fetch_prom(Q_BYTES)
+    errors_data = fetch_prom(Q_ERRORS)
+    connections_data = fetch_prom(Q_CONNECTIONS)
+    retransmits_data = fetch_prom(Q_RETRANSMITS)
 
     graph = {}
 
@@ -68,7 +75,10 @@ def fetch_and_parse():
                     "target_pod": target_pod,
                     "requests_per_second": 0.0,
                     "p99_latency_ms": 0.0,
-                    "bytes_per_second": 0.0
+                    "bytes_per_second": 0.0,
+                    "errors_per_second": 0.0,
+                    "active_connections": 0,
+                    "retransmits_per_second": 0.0
                 }
             
             # Update the specific metric
@@ -78,6 +88,9 @@ def fetch_and_parse():
     process_dataset(rps_data, "requests_per_second")
     process_dataset(latency_data, "p99_latency_ms")
     process_dataset(bytes_data, "bytes_per_second")
+    process_dataset(errors_data, "errors_per_second")
+    process_dataset(connections_data, "active_connections")
+    process_dataset(retransmits_data, "retransmits_per_second")
 
     # Format into the final JSON list contract
     final_output = []

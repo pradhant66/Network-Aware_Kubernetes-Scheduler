@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-like-topo
+  namespace: emojivoto
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: web
+      evaluation-run: topo
+  template:
+    metadata:
+      labels:
+        app: web
+        evaluation-run: topo
+        evaluation-role: web-like
+    spec:
+      schedulerName: topo-scheduler
+      containers:
+      - name: pause
+        image: registry.k8s.io/pause:3.10
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "128Mi"
+          limits:
+            cpu: "700m"
+            memory: "256Mi"

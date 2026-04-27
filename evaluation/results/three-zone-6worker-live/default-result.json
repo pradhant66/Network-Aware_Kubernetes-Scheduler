@@ -1,0 +1,162 @@
+{
+  "pod_count": 6,
+  "total_weighted_cost": 10344.75,
+  "edge_counts": {
+    "same_node": 1,
+    "same_rack": 0,
+    "same_zone": 3,
+    "cross_zone": 8
+  },
+  "edge_weighted_bytes": {
+    "same_node": 29.54,
+    "same_rack": 0.0,
+    "same_zone": 203.56,
+    "cross_zone": 466.2
+  },
+  "pods": [
+    {
+      "pod": "web-like-default-58ff575cfc-99w59",
+      "node": "topo-cluster-worker6",
+      "source_app": "web",
+      "weighted_cost": 2331.0,
+      "dependencies": [
+        {
+          "target_pod": "emoji-86cb9c4885-qtqd4",
+          "target_node": "topo-cluster-worker",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 87.01,
+          "edge_cost": 1740.2
+        },
+        {
+          "target_pod": "voting-84f5d59c6b-rp2c2",
+          "target_node": "topo-cluster-worker4",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 29.54,
+          "edge_cost": 590.8
+        }
+      ]
+    },
+    {
+      "pod": "web-like-default-58ff575cfc-f9nc2",
+      "node": "topo-cluster-worker5",
+      "source_app": "web",
+      "weighted_cost": 2331.0,
+      "dependencies": [
+        {
+          "target_pod": "emoji-86cb9c4885-qtqd4",
+          "target_node": "topo-cluster-worker",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 87.01,
+          "edge_cost": 1740.2
+        },
+        {
+          "target_pod": "voting-84f5d59c6b-rp2c2",
+          "target_node": "topo-cluster-worker4",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 29.54,
+          "edge_cost": 590.8
+        }
+      ]
+    },
+    {
+      "pod": "web-like-default-58ff575cfc-nh4q9",
+      "node": "topo-cluster-worker2",
+      "source_app": "web",
+      "weighted_cost": 1025.85,
+      "dependencies": [
+        {
+          "target_pod": "emoji-86cb9c4885-qtqd4",
+          "target_node": "topo-cluster-worker",
+          "distance_bucket": "same_zone",
+          "distance_multiplier": 5.0,
+          "bytes_per_second": 87.01,
+          "edge_cost": 435.05
+        },
+        {
+          "target_pod": "voting-84f5d59c6b-rp2c2",
+          "target_node": "topo-cluster-worker4",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 29.54,
+          "edge_cost": 590.8
+        }
+      ]
+    },
+    {
+      "pod": "web-like-default-58ff575cfc-p26gx",
+      "node": "topo-cluster-worker2",
+      "source_app": "web",
+      "weighted_cost": 1025.85,
+      "dependencies": [
+        {
+          "target_pod": "emoji-86cb9c4885-qtqd4",
+          "target_node": "topo-cluster-worker",
+          "distance_bucket": "same_zone",
+          "distance_multiplier": 5.0,
+          "bytes_per_second": 87.01,
+          "edge_cost": 435.05
+        },
+        {
+          "target_pod": "voting-84f5d59c6b-rp2c2",
+          "target_node": "topo-cluster-worker4",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 29.54,
+          "edge_cost": 590.8
+        }
+      ]
+    },
+    {
+      "pod": "web-like-default-58ff575cfc-xdcfr",
+      "node": "topo-cluster-worker3",
+      "source_app": "web",
+      "weighted_cost": 1887.9,
+      "dependencies": [
+        {
+          "target_pod": "emoji-86cb9c4885-qtqd4",
+          "target_node": "topo-cluster-worker",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 87.01,
+          "edge_cost": 1740.2
+        },
+        {
+          "target_pod": "voting-84f5d59c6b-rp2c2",
+          "target_node": "topo-cluster-worker4",
+          "distance_bucket": "same_zone",
+          "distance_multiplier": 5.0,
+          "bytes_per_second": 29.54,
+          "edge_cost": 147.7
+        }
+      ]
+    },
+    {
+      "pod": "web-like-default-58ff575cfc-xtzfn",
+      "node": "topo-cluster-worker4",
+      "source_app": "web",
+      "weighted_cost": 1743.15,
+      "dependencies": [
+        {
+          "target_pod": "emoji-86cb9c4885-qtqd4",
+          "target_node": "topo-cluster-worker",
+          "distance_bucket": "cross_zone",
+          "distance_multiplier": 20.0,
+          "bytes_per_second": 87.01,
+          "edge_cost": 1740.2
+        },
+        {
+          "target_pod": "voting-84f5d59c6b-rp2c2",
+          "target_node": "topo-cluster-worker4",
+          "distance_bucket": "same_node",
+          "distance_multiplier": 0.1,
+          "bytes_per_second": 29.54,
+          "edge_cost": 2.95
+        }
+      ]
+    }
+  ]
+}

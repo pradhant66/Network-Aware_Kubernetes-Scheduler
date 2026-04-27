@@ -10,9 +10,12 @@ spec:
       app: telemetry-api
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: telemetry-api
     spec:
+      serviceAccountName: default
       containers:
       - name: api
         image: telemetry-api:latest

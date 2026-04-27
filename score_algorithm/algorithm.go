@@ -3,6 +3,8 @@ package score_algorithm
 import (
 	"encoding/json"
 	"fmt"
+	"math"
+	"os"
 	"sort"
 )
 
@@ -12,6 +14,21 @@ const (
 	SameRack = 1.0
 	SameAZ   = 5.0
 	CrossAZ  = 20.0
+)
+
+const (
+	ModeNetworkOnly  = "network-only"
+	ModeCPUProximity = "cpu-proximity"
+	ModeCentrality   = "centrality"
+	ModePID          = "pid"
+
+	algorithmModeEnv    = "TOPO_SCORING_MODE"
+	cpuWarningThreshold = 80.0
+	hubThreshold        = 10000.0
+	pidTargetCrossRackBps = 5000.0
+	pidKp                 = 0.005
+	pidKi                 = 0.001
+	pidKd                 = 0.002
 )
 
 // --- Input Structs ---
@@ -28,6 +45,7 @@ type Node struct {
 type K8sPayload struct {
 	PodToSchedule  string `json:"pod_to_schedule"`
 	CandidateNodes []Node `json:"candidate_nodes"`
+	Controller     *PIDControllerState `json:"controller,omitempty"`
 }
 
 type Dependency struct {
@@ -44,8 +62,19 @@ type TelemetryPayload struct {
 // --- Output Struct ---
 
 type NodeScore struct {
-	Node  string  `json:"node"`
-	Score float64 `json:"score"`
+	Node              string  `json:"node"`
+	Score             float64 `json:"score"`
+	RawNetworkCost    float64 `json:"raw_network_cost,omitempty"`
+	CPUPenalty        float64 `json:"cpu_penalty,omitempty"`
+	CPUUtilizationPct float64 `json:"cpu_utilization_pct,omitempty"`
+	PodClassification string  `json:"pod_classification,omitempty"`
+	DynamicWeight     float64 `json:"dynamic_weight,omitempty"`
+}
+
+type PIDControllerState struct {
+	CurrentCrossRackBps float64 `json:"current_cluster_cross_rack_bps"`
+	Integral            float64 `json:"integral"`
+	PrevError           float64 `json:"prev_error"`
 }
 
 func calculateDistanceMultiplier(candidate Node, targetNodeName string, topologyMap map[string]Node) float64 {
@@ -61,6 +90,33 @@ func calculateDistanceMultiplier(candidate Node, targetNodeName string, topology
 		return SameAZ
 	}
 	return CrossAZ
+}
+
+func calculateCPUPenalty(cpuPct float64) float64 {
+	exponent := (cpuPct - cpuWarningThreshold) / 10.0
+	if exponent < -10 {
+		exponent = -10
+	}
+	if exponent > 10 {
+		exponent = 10
+	}
+	return 1.0 + math.Exp(exponent)
+}
+
+func scoringMode() string {
+	mode := os.Getenv(algorithmModeEnv)
+	switch mode {
+	case "", ModeNetworkOnly:
+		return ModeNetworkOnly
+	case ModeCPUProximity:
+		return ModeCPUProximity
+	case ModeCentrality:
+		return ModeCentrality
+	case ModePID:
+		return ModePID
+	default:
+		return ModeNetworkOnly
+	}
 }
 
 // EvaluateNodes is PUBLIC. It takes two JSON byte arrays and returns one JSON byte array.
@@ -82,19 +138,61 @@ func EvaluateNodes(k8sJSON []byte, telemetryJSON []byte) ([]byte, error) {
 		topologyMap[node.Name] = node
 	}
 
-	// 3. Calculate scores using the Naive Greedy logic
+	mode := scoringMode()
+	totalAggregateBandwidth := 0.0
+	for _, dep := range telemetryState.TrafficDependencies {
+		totalAggregateBandwidth += dep.BytesPerSecond
+	}
+
+	classification := "Spoke"
+	if totalAggregateBandwidth >= hubThreshold {
+		classification = "Hub"
+	}
+
+	dynamicWeight := 1.0
+	if mode == ModePID && k8sState.Controller != nil {
+		errVal := k8sState.Controller.CurrentCrossRackBps - pidTargetCrossRackBps
+		pTerm := pidKp * errVal
+		iTerm := pidKi * k8sState.Controller.Integral
+		dTerm := pidKd * (errVal - k8sState.Controller.PrevError)
+		dynamicWeight = math.Max(1.0, 1.0+pTerm+iTerm+dTerm)
+	}
+
+	// 3. Calculate scores using the selected logic
 	var results []NodeScore
 	for _, candidate := range k8sState.CandidateNodes {
 		totalNetworkCost := 0.0
 
 		for _, dep := range telemetryState.TrafficDependencies {
 			distance := calculateDistanceMultiplier(candidate, dep.CurrentNode, topologyMap)
+			if mode == ModePID && distance > SameRack {
+				distance *= dynamicWeight
+			}
 			totalNetworkCost += dep.BytesPerSecond * distance
 		}
 
+		finalCost := totalNetworkCost
+		cpuPenalty := 1.0
+		if mode == ModeCPUProximity {
+			cpuPenalty = calculateCPUPenalty(candidate.CPUUtilizationPct)
+			finalCost = totalNetworkCost * cpuPenalty
+		} else if mode == ModeCentrality {
+			if classification == "Hub" && candidate.CPUUtilizationPct > cpuWarningThreshold {
+				finalCost = math.MaxFloat64
+			} else if classification == "Hub" {
+				cpuPenalty = 1.0 + (candidate.CPUUtilizationPct / 100.0)
+				finalCost = totalNetworkCost * cpuPenalty
+			}
+		}
+
 		results = append(results, NodeScore{
-			Node:  candidate.Name,
-			Score: totalNetworkCost,
+			Node:              candidate.Name,
+			Score:             finalCost,
+			RawNetworkCost:    totalNetworkCost,
+			CPUPenalty:        cpuPenalty,
+			CPUUtilizationPct: candidate.CPUUtilizationPct,
+			PodClassification: classification,
+			DynamicWeight:     dynamicWeight,
 		})
 	}
 

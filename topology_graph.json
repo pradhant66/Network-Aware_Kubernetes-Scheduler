@@ -4,16 +4,22 @@
     "namespace": "emojivoto",
     "traffic_dependencies": [
       {
-        "target_pod": "emoji-745c8cd747-rrz8c",
-        "requests_per_second": 4.82,
-        "p99_latency_ms": 0.99,
-        "bytes_per_second": 484.39
+        "target_pod": "voting-8fc9b6f4d-trjnl",
+        "requests_per_second": 0.88,
+        "p99_latency_ms": 89.0,
+        "bytes_per_second": 84.54,
+        "errors_per_second": 0.1,
+        "active_connections": 1.0,
+        "retransmits_per_second": 0.0
       },
       {
-        "target_pod": "voting-846d476944-cgpcp",
-        "requests_per_second": 2.69,
-        "p99_latency_ms": 0.99,
-        "bytes_per_second": 257.59
+        "target_pod": "emoji-76b986c95f-gdhvf",
+        "requests_per_second": 1.76,
+        "p99_latency_ms": 312.0,
+        "bytes_per_second": 177.17,
+        "errors_per_second": 0.0,
+        "active_connections": 1.0,
+        "retransmits_per_second": 0.0
       }
     ]
   },
@@ -22,10 +28,13 @@
     "namespace": "emojivoto",
     "traffic_dependencies": [
       {
-        "target_pod": "web-7d64655496-ll5vs",
-        "requests_per_second": 5.34,
-        "p99_latency_ms": 4.07,
-        "bytes_per_second": 424.27
+        "target_pod": "web-7c4f66c784-4blbr",
+        "requests_per_second": 1.76,
+        "p99_latency_ms": 560.0,
+        "bytes_per_second": 135.3,
+        "errors_per_second": 0.1,
+        "active_connections": 1.0,
+        "retransmits_per_second": 0.0
       }
     ]
   }

@@ -1,0 +1,3 @@
+topo-cluster-worker	us-east-1	us-east-1a	rack-1
+topo-cluster-worker2	us-east-1	us-east-1b	rack-2
+topo-cluster-worker3	us-east-1	us-east-1c	rack-3
